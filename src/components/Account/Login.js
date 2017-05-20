@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { accountLogin } from '../../actions/account'
-import { Row,Clearfix } from 'react-bootstrap';
+import { accountLogin, accountLogout } from '../../actions/account'
+import { Row, Clearfix, FormControl, Button } from 'react-bootstrap';
+var Router = require('react-router');
 
 export class Login extends Component {
 
@@ -13,6 +14,7 @@ export class Login extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.accountLogin = accountLogin.bind(this)
+    this.accountLogout = accountLogout.bind(this)
   }
 
   handleChange(field, evt) {
@@ -24,7 +26,6 @@ export class Login extends Component {
   handleSubmit(event) {
     event.preventDefault()
     this.accountLogin()
-
   }
 
   render(){
@@ -48,6 +49,10 @@ export class Login extends Component {
             Submit
           </Button>
         </form>
+
+        <Button type="submit" onClick={(event) => this.accountLogout()}>
+          Logout
+        </Button>
     </div>
     )
   }

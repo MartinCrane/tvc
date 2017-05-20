@@ -18,7 +18,35 @@
   font-size: large;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.searchResults li {
+  padding: 1em;
+  background-color: pink;
+}
+
+.searchResults .active {
+  background-color: red;
+}
+
+.box {
+	position: relative;
+	margin: 10em auto 0;
+	width: 50%; height: 20em;
+	background: yellow;
+}
+.box:before, .box:after {
+	position: absolute;
+	transform-origin: bottom right;
+	content: '';
+}
+.box:before {
+	top: 0; right: 100%; bottom: 0;
+	width: 4em;
+	background: pink;
+	transform: skewY(45deg);
+}
+.box:after {
+	right: 0; bottom: 100%; left: 0;
+	height: 4em;
+	background: red;
+	transform: skewX(45deg);
 }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux'
 import {connect} from 'react-redux'
+import { Row, Clearfix, FormControl, Button } from 'react-bootstrap';
 
-import { setLogin } from '../../actions/setLogin'
 import { accountRegister } from '../../actions/account'
 
 
@@ -29,17 +29,6 @@ export class Registration extends Component {
 
   handleSubmit(event) {
       event.preventDefault(event)
-      if (this.state.password !== this.state.passwordConfirm) {
-        return alert("Password and Password Confirmation must match")
-      } else if (this.state.username !== '' || this.state.email !== '') {
-        return alert("Please enter a username and password")
-      } else {
-         accountRegister(this.state.email, this.state.password, this.props.setLogin)
-      }
-
-      this.setState({
-        email: '', password: '', passwordConfirm: ''
-      })
   }
 
 
@@ -73,11 +62,3 @@ export class Registration extends Component {
       )
     }
 }
-
-    const mapDispatchToProps = (dispatch) => {
-      return bindActionCreators({
-        setLogin: setLogin
-      }, dispatch)
-    }
-
-    export const ConnectedRegister = connect(null,mapDispatchToProps)(Registration)
