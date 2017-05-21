@@ -1,16 +1,20 @@
 import { combineReducers } from 'redux'
-import mouseReducer from './mouseReducer'
 import searchReducer from './searchReducer'
 import playlistReducer from './playlistReducer'
-import sourcesReducer from './sourcesReducer'
+import sourceReducer from './sourceReducer'
 import accountReducer from './accountReducer'
+import settingsReducer from './settingsReducer'
+import titleReducer from './titleReducer'
+import loadingReducer from './loadingReducer'
 import { routerReducer } from 'react-router-redux'
 
 export default combineReducers({
-  mouse: mouseReducer,
   search: searchReducer,
   routing: routerReducer,
   playlist: playlistReducer,
   account: accountReducer,
-  sources: sourcesReducer
+  settings: settingsReducer,
+  title: titleReducer,
+  source: sourceReducer,
+  loading: loadingReducer
 })

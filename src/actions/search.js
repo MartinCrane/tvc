@@ -2,6 +2,7 @@ import axios from 'axios'
 import { serverURL } from '../data/config'
 
 export function search() {
+  axios.defaults.headers.common['Authorization'] = `${localStorage.mcjwt}`
   return axios.post(serverURL + 'search',
     {
     method: 'post',

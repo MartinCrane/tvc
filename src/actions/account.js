@@ -42,34 +42,84 @@ export function accountRegister() {
 }
 
 export function restoreAccount() {
-    axios.get(serverURL + 'restore',
+    axios.get(serverURL + 'accounts',
     {
       method: 'get',
       headers: {
         Authorization: `${localStorage.mcjwt}`
       }
     }).then((response) => {
-      return response
+      let account = {name: response.data.name, username: response.data.username, email: response.data.email}
+      this.props.updateAccount(account)
+      this.props.updateSources(response.data.sources)
+      return this.props.updateAccountRestore(true)
     }).catch((response) => {
       return response
     });
   }
 
-  export const updateSources = (filter) => {
+export function restorePlaylists() {
+    axios.get(serverURL + 'playlists',
+    {
+      method: 'get',
+      headers: {
+        Authorization: `${localStorage.mcjwt}`
+      }
+    }).then((response) => {
+      let playlists = response.data
+      this.props.updatePlaylists(playlists)
+    }).catch((response) => {
+      return response
+    });
+  }
+export function restoreTitles() {
+    axios.get(serverURL + 'titles',
+    {
+      method: 'get',
+      headers: {
+        Authorization: `${localStorage.mcjwt}`
+      }
+    }).then((response) => {
+      let playlists = response.data
+      this.props.updateTitles(playlists)
+    }).catch((response) => {
+      return response
+    });
+  }
+
+  export const updateSources = (sources) => {
     return {
       type: "UPDATE_SOURCES",
-      payload: filter
+      payload: sources
     }
   }
-  export const updatePlaylists = (filter) => {
+  export const updatePlaylists = (playlists) => {
     return {
       type: "UPDATE_PLAYLISTS",
-      payload: filter
+      payload: playlists
     }
   }
-  export const updateAccount = (filter) => {
+  export const updateTitles = (playlists) => {
+    return {
+      type: "UPDATE_TITLES",
+      payload: playlists
+    }
+  }
+  export const updateFollowedPlaylists = (playlists) => {
+    return {
+      type: "UPDATE_FOLLOWED_PLAYLISTS",
+      payload: playlists
+    }
+  }
+  export const updateAccount = (account) => {
     return {
       type: "UPDATE_ACCOUNT",
-      payload: filter
+      payload: account
+    }
+  }
+  export const updateAccountRestore = (boolean) => {
+    return {
+      type: "UPDATE_ACCOUNT_RESTORE",
+      payload: boolean
     }
   }

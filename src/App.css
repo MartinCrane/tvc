@@ -2,6 +2,7 @@
   text-align: center;
 }
 
+
 .App-logo {
   animation: App-logo-spin infinite 20s linear;
   height: 80px;
@@ -49,4 +50,9 @@
 	height: 4em;
 	background: red;
 	transform: skewX(45deg);
+}
+
+
+.title {
+  display: inline-block;
 }

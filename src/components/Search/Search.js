@@ -3,6 +3,7 @@ import { search, updateSearch } from '../../actions/search'
 import { Row, Clearfix, FormControl, Button } from 'react-bootstrap';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { Link } from 'react-router'
 
 export class Search extends Component {
   constructor(){
@@ -51,13 +52,17 @@ export class Search extends Component {
     return(
       <div>
         <div>
-          <h1><i>movie</i></h1>
+          <h1>
+            <i>movie</i>
+          </h1>
         </div>
         <div>
           <h1>tv</h1>
         </div>
         <form onSubmit={(event) => this.handleSubmit(event)}>
-          <label>Search :::</label>
+          <label>
+            Search :::
+          </label>
           <FormControl
             type="text"
             onChange={this.handleChange.bind(null, "title")}
@@ -69,12 +74,16 @@ export class Search extends Component {
             Submit
           </Button>
         </form>
-        <ul onClick={(event) => this.handleClick(event)} className="searchResults">
-        {this.state.results.map((title) => <li data-id={`${title.box_id}`}
-                                                className={(this.state.selections.includes(title.box_id.toString())) ? 'box' : null}>
-                                                {title.original_title}
-                                            </li>
-                                          )}
+        <ul
+          onClick={(event) => this.handleClick(event)}
+          className="searchResults">
+          {this.state.results.map((title) =>
+            <li
+              data-id={`${title.box_id}`}
+              className={(this.state.selections.includes(title.box_id.toString())) ? 'box' : null}>
+              {title.original_title}
+            </li>
+          )}
         </ul>
       </div>
     )

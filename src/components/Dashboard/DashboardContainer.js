@@ -1,44 +1,35 @@
 import React, { Component } from 'react';
 import { Row } from 'react-bootstrap';
 import { connect } from 'react-redux'
-import { restoreAccount, updateAccount } from '../../actions/account'
+import { restoreAccount, updateAccount, updateAccountRestore, updateSources, updatePlaylists, updateFollowedPlaylists } from '../../actions/account'
 import { bindActionCreators } from 'redux'
-
+import { PlaylistContainer } from '../Playlist/PlaylistContainer';
+import { SourceContainer } from '../Source/SourceContainer';
+import { SearchContainer } from '../Search/SearchContainer';
+import { Link } from 'react-router'
 
 export class DashboardContainer extends Component {
   constructor(){
     super()
-    // this.handleChange = this.handleChange.bind(this)
-    // this.handleSubmit = this.handleSubmit.bind(this)
-    this.restoreAccount = restoreAccount.bind(this)
-    // this.updateAccount = updateAccount.bind(this)
-  }
-
-  componentWillMount() {
-
   }
 
   render() {
+    const container = <div><PlaylistContainer playlists={this.props.playlists}/></div>
+
     return (
         <Row>
-          ConnectedDashboardContainer
-          {this.props.children}
+          {this.props.accountRestore ? container : <h1>'loading'</h1>}
+          {this.props.accountRestore.toString()}
         </Row>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    restoreAccount: restoreAccount
-  }, dispatch)
-}
-
 const mapStateToProps = (state) =>{
   return{
-    blog: state.blog
+    playlists: state.playlist.createdPlaylists,
+    accountRestore: state.account.accountRestore
   }
 }
 
-
-export const ConnectedDashboardContainer = connect(null,mapDispatchToProps)(DashboardContainer)
+export const ConnectedDashboardContainer = connect(mapStateToProps)(DashboardContainer)

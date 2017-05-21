@@ -1,15 +1,23 @@
 import React, { Component } from 'react';
-import { Row } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
+import  { ConnectedTitle }  from '../Title/Title';
 
-export class Playlist extends Component {
+export default class Playlist extends Component {
+  constructor() {
+    super()
+  }
+
   render() {
+    const playlist = (
+        <div>
+          <h2>Playlist name: {this.props.playlist.name}</h2>
+          {this.props.playlist.playlist_order.map((title, index) => <ConnectedTitle key={index} titleId={title}></ConnectedTitle>)}
+        </div>
+    )
     return (
-        <Row>
-          <h1>PLAYLIST</h1>
-          <ul>
-            {this.props.playlist.titles.map((title) => <li>{title.original_title}</li>)}
-          </ul>
-        </Row>
+      <div>
+          {playlist}
+      </div>
     );
   }
 }
