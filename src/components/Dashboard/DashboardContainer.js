@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Row } from 'react-bootstrap';
 import { connect } from 'react-redux'
-import { restoreAccount, updateAccount, updateAccountRestore, updateSources, updatePlaylists, updateFollowedPlaylists } from '../../actions/account'
 import { bindActionCreators } from 'redux'
 import { PlaylistContainer } from '../Playlist/PlaylistContainer';
 import { SourceContainer } from '../Source/SourceContainer';
@@ -14,12 +13,10 @@ export class DashboardContainer extends Component {
   }
 
   render() {
-    const container = <div><PlaylistContainer playlists={this.props.playlists}/></div>
 
     return (
         <Row>
-          {this.props.accountRestore ? container : <h1>'loading'</h1>}
-          {this.props.accountRestore.toString()}
+          <div><PlaylistContainer playlists={this.props.playlists}/></div>
         </Row>
     );
   }
@@ -27,8 +24,7 @@ export class DashboardContainer extends Component {
 
 const mapStateToProps = (state) =>{
   return{
-    playlists: state.playlist.createdPlaylists,
-    accountRestore: state.account.accountRestore
+    playlists: state.playlist.createdPlaylists
   }
 }
 

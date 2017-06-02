@@ -24,6 +24,21 @@ export function gatherAllSources() {
   });
 }
 
+export function updateSourcesServer() {
+  axios.defaults.headers.common['Authorization'] = `${localStorage.mcjwt}`
+  axios.put(serverURL + 'sources/', {
+    method: 'put',
+    addedSources: this.state.addedSources,
+    removedSources  : this.state.removedSources ,
+
+  }).then((response) => {
+    this.props.updateSources(response.data)
+  }).catch((response) => {
+    return response
+  });
+}
+
+
 export const updateDisplaySettingsSources = (sources) => {
   return {
     type: "DISPLAY_SETTINGS_SOURCES",

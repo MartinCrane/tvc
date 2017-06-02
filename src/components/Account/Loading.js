@@ -4,7 +4,8 @@ import {connect} from 'react-redux'
 import { SourceManagerContainer } from '../Source/SourceManagerContainer'
 import { Row, Clearfix, FormControl, Button } from 'react-bootstrap';
 import { accountRegister } from '../../actions/account'
-import { accountLogin, accountLogout, updateTitles, restoreAccount, updateAccountRestore, updateAccount, updateSources, updatePlaylists, restorePlaylists, updateFollowedPlaylists, restoreTitles } from '../../actions/account'
+import {  restoreAccount, restorePlaylists, restoreTitles } from '../../actions/account'
+import { updateTitles, updateAccountRestore, updateAccount, updateSources, updatePlaylists, updateFollowedPlaylists} from '../../actions/actions'
 import axios from 'axios'
 import { serverURL } from '../../data/config'
 var Router = require('react-router');
@@ -28,7 +29,7 @@ export class Loading extends Component {
 
 
   restoreAccount() {
-    axios.get(serverURL + 'accounts',
+    axios.get(serverURL + 'accounts/restore',
     {
       method: 'get',
       headers: {
@@ -51,7 +52,7 @@ export class Loading extends Component {
   }
 
   restorePlaylists() {
-    axios.get(serverURL + 'playlists',
+    axios.get(serverURL + 'playlists/restore',
     {
       method: 'get',
       headers: {
@@ -107,6 +108,7 @@ export class Loading extends Component {
       <div>
         <h1>LOADING</h1>
         <br></br>
+        {this.state.errors}
       </div>
       )
     }
@@ -131,7 +133,7 @@ const mapStateToProps = (state) =>{
     titles: state.title,
     followedPlaylist: state.playlist.followedPlaylist,
     accountRestore: state.account.accountRestore,
-    lastPage: state.routing
+    lastPage: state.loading
   }
 }
 

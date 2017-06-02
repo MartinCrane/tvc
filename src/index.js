@@ -40,7 +40,6 @@ function requireAuth(nextState, replace) {
       pathname: '/loading'
     })
   } else {
-    
   }
 }
 

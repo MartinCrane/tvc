@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Row } from 'react-bootstrap';
 import Playlist from './Playlist'
+import { PlaylistCreator } from './PlaylistCreator'
 
 export class PlaylistContainer extends Component {
   render() {

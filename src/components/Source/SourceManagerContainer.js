@@ -12,12 +12,11 @@ export class SourceManagerContainer extends Component {
   render() {
 
     const sources = (
-      this.props.sources.map((source, index) => <div key={index}><Source source={source}/></div> )
+        this.props.sources.map((source, index) => <div key={index}><Source source={source}/></div> )
     )
 
     return (
         <Row>
-          <h1><u>Source</u></h1>
           {sources}
         </Row>
     );
