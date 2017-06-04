@@ -29,8 +29,7 @@ export function updateSourcesServer() {
   axios.put(serverURL + 'sources/', {
     method: 'put',
     addedSources: this.state.addedSources,
-    removedSources  : this.state.removedSources ,
-
+    removedSources: this.state.removedSources,
   }).then((response) => {
     this.props.updateSources(response.data)
   }).catch((response) => {

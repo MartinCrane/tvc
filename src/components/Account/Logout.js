@@ -12,7 +12,7 @@ export class Logout extends Component {
   render(){
     return(
       <div>
-        <h1>AGAiM</h1>
+        <h1>AGAIN</h1>
     </div>
     )
   }

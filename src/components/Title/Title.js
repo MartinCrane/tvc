@@ -11,6 +11,8 @@ export default class Title extends Component {
     super()
     this.removeTitleServer = removeTitleServer.bind(this)
     this.handleRemoveTitle = this.handleRemoveTitle.bind(this)
+    this.renderSources = this.renderSources.bind(this)
+    this.sourceList = this.sourceList.bind(this)
   }
 
   handleRemoveTitle() {
@@ -26,9 +28,19 @@ export default class Title extends Component {
   }
 
   renderSources(title) {
-    return this.props.sources.filter(
-      (source) => title.source_id.includes(source.id)).map(
-        (source, index) => <li key={index}>{source.display_name}--{source.stream_type}</li>)
+    if (title.media_type === 'movie') {
+      return this.sourceList(title.source_id)
+    } else if (title.media_type === 'show') {
+      return title.seasons.map((season, index) => <div>
+        <h2>Season {season.number}</h2>
+        {this.sourceList(season.sources)}
+      </div>)
+    }
+  }
+
+  sourceList(sourceIdArray) {
+    let sourceObjectArray = this.props.sources.filter((source) => sourceIdArray.includes(source.id))
+    return sourceObjectArray.map((source, index) => <li key={index}>{source.display_name}--{source.stream_type}</li>)
   }
 
   render() {
@@ -47,7 +59,7 @@ export default class Title extends Component {
         <ul>
           {this.renderSources(localTitle)}
         </ul>
-        <h4 onClick={this.handleRemoveTitle}>remove this title from Playlist</h4>
+        {this.props.edit ? <h4 onClick={this.handleRemoveTitle}>remove this title from Playlist</h4> : null}
       </div>
     );
   }

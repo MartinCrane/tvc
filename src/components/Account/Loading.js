@@ -27,7 +27,6 @@ export class Loading extends Component {
     this.restoreAccount()
   }
 
-
   restoreAccount() {
     axios.get(serverURL + 'accounts/restore',
     {
@@ -96,7 +95,6 @@ export class Loading extends Component {
 
     if (this.state.titles && this.state.account && this.state.playlists) {
       this.props.updateAccountRestore(true)
-      console.log('atatat')
       this.props.lastPage
       Router.browserHistory.push(this.props.lastPage)
     }
