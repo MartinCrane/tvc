@@ -18,14 +18,27 @@ export class SearchResult extends Component {
   }
   render() {
     return (
-      <div className="title">
+      <div
+        className="SearchResult"
+        data-id={this.props.title.Title}>
         <h2>
-          <b><b>{this.props.title.original_title}{this.props.title.release_year}</b></b>
+          {this.props.title.Title}
         </h2>
-        <img src={`${this.props.title.artwork.large}`}></img>
-        <div onClick={this.handleClick}>ADD!!</div>
-        {this.state.add ? <PopMenu playlists={this.props.playlists} title={this.props.title} add={this.props.add}/> : null}
-      </div>
+        <h3>
+          {this.props.title.Year}
+        </h3>
+        <img src={`${this.props.title.Poster}`}>
+        </img>
+        <div onClick={this.handleClick}>+</div>
+        {this.state.add ?
+          <div>
+          <PopMenu
+            playlists={this.props.playlists}
+            title={this.props.title}
+            add={this.props.add}/>
+          </div>
+          : null}
+        </div>
     );
   }
 }

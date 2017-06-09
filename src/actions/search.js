@@ -17,6 +17,22 @@ export function search(term) {
   });
 }
 
+export function suggest(term) {
+  axios.defaults.headers.common['Authorization'] = `${localStorage.mcjwt}`
+  return axios.post(serverURL + 'search/suggest',
+    {
+    method: 'post',
+    search: {
+      title: term,
+      type: `${this.state.type}`
+    }
+  }).then((response) => {
+    return response.data
+  }).catch((response) => {
+    return response
+  });
+}
+
 export function updatePlaylistsServer() {
   axios.defaults.headers.common['Authorization'] = `${localStorage.mcjwt}`
   return axios.get(serverURL + 'playlists/restore',
@@ -26,9 +42,9 @@ export function updatePlaylistsServer() {
       Authorization: `${localStorage.mcjwt}`
     }
   }).then((response) => {
-    let playlists = response.data
-    this.props.updatePlaylists(playlists)
+    this.props.restorePlaylists(response.data)
   }).catch((response) => {
+    return response
   });
 }
 
@@ -41,16 +57,9 @@ export function updateTitlesServer() {
       updates: this.state.selections
     }
   }).then((response) => {
-    this.props.updateTitles(response.data)
+    this.props.restoreTitles(response.data)
   })
   .catch((response) => {
     return response
   });
-}
-
-export const updateSearch = (search_results) => {
-  return {
-    type: "SEARCH_RESULTS",
-    payload: search_results
-  }
 }

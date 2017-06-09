@@ -1,18 +1,18 @@
-export const updateSources = (sources) => {
+export const restoreSources = (sources) => {
   return {
-    type: "UPDATE_SOURCES",
+    type: "RESTORE_SOURCES",
     payload: sources
   }
 }
-export const updatePlaylists = (playlists) => {
+export const restorePlaylists = (playlists) => {
   return {
-    type: "UPDATE_PLAYLISTS",
+    type: "RESTORE_PLAYLISTS",
     payload: playlists
   }
 }
-export const updateTitles = (playlists) => {
+export const restoreTitles = (playlists) => {
   return {
-    type: "UPDATE_TITLES",
+    type: "RESTORE_TITLES",
     payload: playlists
   }
 }
@@ -22,9 +22,9 @@ export const updateFollowedPlaylists = (playlists) => {
     payload: playlists
   }
 }
-export const updateAccount = (account) => {
+export const restoreAccount = (account) => {
   return {
-    type: "UPDATE_ACCOUNT",
+    type: "RESTORE_ACCOUNT",
     payload: account
   }
 }
@@ -32,5 +32,11 @@ export const updateAccountRestore = (boolean) => {
   return {
     type: "UPDATE_ACCOUNT_RESTORE",
     payload: boolean
+  }
+}
+export const updateSearch = (search_results) => {
+  return {
+    type: "SEARCH_RESULTS",
+    payload: search_results
   }
 }

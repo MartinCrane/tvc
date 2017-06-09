@@ -1,22 +1,30 @@
 import React, { Component } from 'react';
 import { Row, Clearfix, FormControl, Button } from 'react-bootstrap';
+import { restoreTitles, restorePlaylists, updateSearch } from '../../actions/actions'
+import { createPlaylistsServer } from '../../actions/playlist'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 import { Col } from 'react-bootstrap';
-import  { ConnectedTitle }  from '../Title/Title';
 
-export class PlaylistCreator extends Component {
+export default class PlaylistCreator extends Component {
   constructor() {
     super()
     this.state={
-      title: '',
+      name: '',
+      error: '',
+      errorDisplay: false
     }
-    this.handleClick = this.handleClick.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.createPlaylistsServer = createPlaylistsServer.bind(this)
   }
 
-  handleClick() {
-    this.setState({
-      expanded: !this.state.expanded
-    })
+  handleSubmit(event) {
+    event.preventDefault()
+    debugger
+
+    // this.createPlaylistsServer()
+    // .then()
+
   }
 
   handleChange(field, evt) {
@@ -25,21 +33,25 @@ export class PlaylistCreator extends Component {
    });
   }
 
+  validatePlaylist() {
+    let names = this.props.playlists.map((playlist) => playlist.name)
+    return !names.includes(this.state.name)
+  }
+
   render() {
     return (
-      <div>
+      <div className="PlaylistCreator">
         <h2>
           PlaylistCreator
         </h2>
-
         <form onSubmit={(event) => this.handleSubmit(event)}>
           <label>
-            Search :::
+            Playlist Name:
           </label>
           <FormControl
             type="text"
-            onChange={this.handleChange.bind(null, "title")}
-            placeholder="title"
+            onChange={this.handleChange.bind(null, "name")}
+            placeholder="playlist name"
             value={this.state.title} />
           <br>
           </br>
@@ -50,5 +62,20 @@ export class PlaylistCreator extends Component {
       </div>
     )
   }
-
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    restoreTitles: restoreTitles,
+    restorePlaylists: restorePlaylists,
+  }, dispatch)
+}
+
+const mapStateToProps = (state) => {
+  return {
+    playlists: state.playlist.createdPlaylists
+  }
+}
+
+
+export const ConnectedPlaylistCreator = connect(mapStateToProps,mapDispatchToProps)(PlaylistCreator)

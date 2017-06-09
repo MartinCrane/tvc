@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import { Menu } from './components/Menu/Menu'
 
 import './App.css';
 
@@ -13,12 +14,14 @@ export class App extends Component {
   render() {
     return (
       <div className="App">
-        <Link to='dashboard'> dash \\ \\ </Link>
-        <Link to='settings'> setting \\ \\  </Link>
-        <Link to='search'> search \\ \\  </Link>
-        <Link to='logout'> logout \\ \\ </Link>
-        <Link to='login'> login \\ \\  </Link>
+          <Menu/>
           {this.props.children}
+          <div className="Footer">
+            THIS IS THE FOOTER
+          </div>
+          <div className="Sidebar">
+            THIS IS THE SIDEBAR
+          </div>
       </div>
     );
   }

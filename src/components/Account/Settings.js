@@ -69,7 +69,7 @@ export class Settings extends Component {
 
   render() {
     return(
-      <div>
+      <div className="Settings">
         {this.state.removedSources}
         <h2>
           Current sources

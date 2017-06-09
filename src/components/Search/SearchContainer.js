@@ -6,7 +6,7 @@ import { ConnectedSearch } from './Search'
 export class SearchContainer extends Component {
   render() {
     return (
-        <Row>
+        <Row className="Container">
           <ConnectedSearch/>
         </Row>
     )

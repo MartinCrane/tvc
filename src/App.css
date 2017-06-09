@@ -1,46 +1,143 @@
 .App {
+  display: grid;
+  max-width: 900px;
+  align-self: center;
+  grid-template-columns: 120px 1fr 1fr;
+  grid-template-rows: 5em auto 5em;
+  grid-template-areas:
+   "logo header header"
+   "sidebar content content"
+   "footer  footer  footer";
+  grid-gap: 20px;
+}
+.Footer {
+  grid-area: footer;
+}
+.Sidebar {
+  grid-area: sidebar;
+}
 
+.Container {
+  grid-area: content;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  background:red;
+  color:black;
+  border: 1px black solid;
+}
+
+/*PLAYLIST*/
+.Playlist {
+  border-radius: 5px;
+  border: 3px black solid;
+  padding: 2em;
+}
+
+.PlaylistTitleBar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 4em 4em;
+  grid-template-rows: 10em;
+  align-items: center;
+}
+
+/*TITLE*/
+.Title {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 20px 1fr 1fr 1fr 1fr;
+  grid-template-rows: 70px;
 }
 
 
+.Title img {
+  height: 50px;
+}
 
+.titleFont {
+  font-size: 1.2em;
+  font-style: bold;
+}
+
+/*SOURCE*/
+.SourceList {
+  font-size: .5em;
+  display: subgrid;
+  grid-template-columns: 5% 10% 20% 10% 20%;
+  grid-template-rows: 50px;
+}
+
+.minimizeButton {
+  background-color: red;
+  color: white;
+  width: 4em;
+  height: 4em;
+  align-self: flex-end;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+
+.Menu a {
+  color: black;
+  width: 5rem;
+}
+.Menu {
+
+  grid-area: header;
+  width: 100%;
+
+  background-color: blue;
+}
+
+.Menu a:visited { color: pink; }
+
+/*SEARCH*/
+.Search {
+  padding: 1em;
+
+}
+.PopMenu {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto;
+  grid-gap: 10px;
+}
 
 .searchResults li {
   padding: 1em;
   background-color: pink;
 }
 
+.SearchResult {
+  border-radius: 5px;
+  border: 1px black solid;
+  padding: 1em;
+  display: grid;
+  grid-template-columns: 1fr .5fr .4fr .1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+.SearchResult img {
+  height: 5em;
+}
+
 .searchResults .active {
   background-color: red;
 }
 
-.box {
-	position: relative;
-	margin: 10em auto 0;
-	width: 50%; height: 20em;
-	background: yellow;
-}
-.box:before, .box:after {
-	position: absolute;
-	transform-origin: bottom right;
-	content: '';
-}
-.box:before {
-	top: 0; right: 100%; bottom: 0;
-	width: 4em;
-	background: pink;
-	transform: skewY(45deg);
-}
-.box:after {
-	right: 0; bottom: 100%; left: 0;
-	height: 4em;
-	background: red;
-	transform: skewX(45deg);
+.highlight {
+  background-color: pink;
 }
 
-.source {
-  font-size: .5em;
-  border: 1px solid black;
+.pointer:hover {
+  cursor: pointer;
 }
 
 .title {
@@ -48,6 +145,7 @@
   font-size: 1em;
   border: 1px solid black;
 }
+
 .active {
   display: block;
   font-size: 1em;

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Col } from 'react-bootstrap';
 
-
 export class PopMenu extends Component {
   constructor() {
     super()
@@ -10,14 +9,13 @@ export class PopMenu extends Component {
   playlists() {
     return (
       this.props.playlists.map((playlist, index) =>
-        <button key={index} onClick={this.props.add.bind(null, playlist.id, this.props.title.id)}> {playlist.name} </button>)
+        <div className='pointer' key={index} onClick={this.props.add.bind(null, playlist.id, this.props.title.imdbID)}> {playlist.name} </div>)
     )
   }
 
   render() {
     return (
-      <div>
-        <h1>playlists</h1>
+      <div className='PopMenu'>
           {this.playlists()}
       </div>
     );

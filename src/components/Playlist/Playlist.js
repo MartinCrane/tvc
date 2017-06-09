@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Col } from 'react-bootstrap';
 import  { ConnectedTitle }  from '../Title/Title';
+import  { minimizeButton }  from '../Ui/Elements';
 
 export default class Playlist extends Component {
   constructor() {
@@ -30,10 +31,14 @@ export default class Playlist extends Component {
   }
   render() {
     return (
-      <div>
-        <h2>Playlist name: {this.props.playlist.name}</h2>
-        <h4 onClick={this.handleClick.bind(null, 'expand')}>{this.state.expand ? 'less' : 'more'}</h4>
-        <h4 onClick={this.handleClick.bind(null, 'edit')}>{this.state.edit ? 'editing' : 'edit'}</h4>
+      <div className="Playlist">
+        <div className='PlaylistTitleBar'>
+          <span></span>
+          <h3>{this.props.playlist.name}</h3>
+          <h4 onClick={this.handleClick.bind(null, 'edit')}>{this.state.edit ? 'editing' : 'edit'}</h4>
+          {minimizeButton(this.handleClick.bind(null, 'expand'), this.state.expand)}
+        </div>
+
         {this.state.expand ? this.playlistCards() : null}
       </div>
     );

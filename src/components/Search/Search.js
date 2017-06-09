@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { search, updateSearch, updateTitlesServer, updatePlaylistsServer } from '../../actions/search'
-import { updateTitles, updatePlaylists } from '../../actions/actions'
+import { search, suggest, updateTitlesServer, updatePlaylistsServer } from '../../actions/search'
+import { restoreTitles, restorePlaylists, updateSearch } from '../../actions/actions'
 import { Row, Clearfix, FormControl, Button } from 'react-bootstrap';
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -17,22 +17,27 @@ export class Search extends Component {
       results: [],
       selections: {},
       playlists: {},
-      addId: 0
+      addId: 0,
+      suggestions: []
     };
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
-    this.sendToServer = this.sendToServer.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.sendToServer = this.sendToServer.bind(this)
+    this.addTitle = this.addTitle.bind(this)
     this.updateTitlesServer = updateTitlesServer.bind(this)
     this.updatePlaylistsServer = updatePlaylistsServer.bind(this)
     this.changeMode = this.changeMode.bind(this)
     this.search = search.bind(this)
+    this.suggest = suggest.bind(this)
+    this.quick = this.quick.bind(this)
   }
 
   handleChange(field, evt) {
+    this.quick(evt.target.value)
     this.setState({
-      [field]: evt.target.value
-   });
+      [field]: evt.target.value,
+    });
   }
 
   handleSubmit(event) {
@@ -42,7 +47,6 @@ export class Search extends Component {
       title:'searching..........'
     })
     this.search(term).then((searchResults) => {
-      debugger
       this.setState({
         results: searchResults,
         title:''
@@ -53,6 +57,10 @@ export class Search extends Component {
   sendToServer() {
     this.updateTitlesServer().then(
       this.updatePlaylistsServer
+    ).then(
+      this.setState({
+        selections: {}
+      })
     )
   }
 
@@ -68,7 +76,7 @@ export class Search extends Component {
     }
   }
 
-  handleClick(playlistId, titleId, event) {
+  addTitle(playlistId, titleId, event) {
     let current = this.state.selections
     let keys = Object.keys(current)
     if (keys.includes(`${playlistId}`)) {
@@ -79,22 +87,36 @@ export class Search extends Component {
     this.setState({
       selections: current
     })
+    this.sendToServer()
+  }
+
+  quick(title){
+    this.suggest(title)
+    .then((res) => {
+      if (res !== null) {
+        this.setState({
+          suggestions: res,
+        })
+      }
+    }).
+    catch((res) => {
+    })
+  }
+
+  handleClick(event) {
+
   }
 
 
   render(){
     return(
-      <div>
+      <div className="Search">
         <div>
-          <h1 onClick={this.changeMode}>type </h1>
-        </div>
-        <div>
-          <h1>{this.state.type}</h1>
+          <h1 onClick={this.changeMode}>
+            {this.state.type}
+          </h1>
         </div>
         <form onSubmit={(event) => this.handleSubmit(event)}>
-          <label>
-            Search :::
-          </label>
           <FormControl
             type="text"
             onChange={this.handleChange.bind(null, "title")}
@@ -106,10 +128,21 @@ export class Search extends Component {
             Submit
           </Button>
         </form>
+        <div>
+            {this.state.suggestions.length > 0 ?
+              this.state.suggestions.map((title, index) =>
+              <SearchResult
+                playlists={this.props.playlists}
+                title={title}
+                key={index}
+                add={this.addTitle} >
+                </SearchResult>
+            )
+            : null}
+        </div>
         <button type="submit" onClick={this.sendToServer}>
-          update
+          Update
         </button>
-        {this.props.playlists[0].name}
         <div
           className="searchResults">
           {this.state.results.map((title, index) =>
@@ -117,7 +150,7 @@ export class Search extends Component {
               playlists={this.props.playlists}
               title={title}
               key={index}
-              add={this.handleClick} >
+              add={this.addTitle} >
             </SearchResult>
           )}
         </div>
@@ -128,8 +161,8 @@ export class Search extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    updateTitles: updateTitles,
-    updatePlaylists: updatePlaylists,
+    restoreTitles: restoreTitles,
+    restorePlaylists: restorePlaylists,
   }, dispatch)
 }
 

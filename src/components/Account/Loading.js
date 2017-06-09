@@ -4,8 +4,7 @@ import {connect} from 'react-redux'
 import { SourceManagerContainer } from '../Source/SourceManagerContainer'
 import { Row, Clearfix, FormControl, Button } from 'react-bootstrap';
 import { accountRegister } from '../../actions/account'
-import {  restoreAccount, restorePlaylists, restoreTitles } from '../../actions/account'
-import { updateTitles, updateAccountRestore, updateAccount, updateSources, updatePlaylists, updateFollowedPlaylists} from '../../actions/actions'
+import { restoreTitles, updateAccountRestore, restoreAccount, restoreSources, restorePlaylists, updateFollowedPlaylists} from '../../actions/actions'
 import axios from 'axios'
 import { serverURL } from '../../data/config'
 var Router = require('react-router');
@@ -36,8 +35,8 @@ export class Loading extends Component {
       }
     }).then((response) => {
       let account = {name: response.data.name, username: response.data.username, email: response.data.email}
-      this.props.updateAccount(account)
-      this.props.updateSources(response.data.sources)
+      this.props.restoreAccount(account)
+      this.props.restoreSources(response.data.sources)
       this.setState({
         account:true
       })
@@ -59,7 +58,7 @@ export class Loading extends Component {
       }
     }).then((response) => {
       let playlists = response.data
-      this.props.updatePlaylists(playlists)
+      this.props.restorePlaylists(playlists)
       this.setState({
         playlists:true
       })
@@ -80,7 +79,7 @@ export class Loading extends Component {
       }
     }).then((response) => {
       let titles = response.data
-      this.props.updateTitles(titles)
+      this.props.restoreTitles(titles)
       this.setState({
         titles:true
       })
@@ -114,10 +113,10 @@ export class Loading extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    updateAccount: updateAccount,
-    updateSources: updateSources,
-    updatePlaylists: updatePlaylists,
-    updateTitles: updateTitles,
+    restoreAccount: restoreAccount,
+    restoreSources: restoreSources,
+    restorePlaylists: restorePlaylists,
+    restoreTitles: restoreTitles,
     updateFollowedPlaylists: updateFollowedPlaylists,
     updateAccountRestore: updateAccountRestore
   }, dispatch)

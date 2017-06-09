@@ -8,13 +8,11 @@ export default class Source extends Component {
 
   render() {
     return (
-      <div className="source" data-id={this.props.source.id}>
-        <h2>
-          <b><b>{this.props.source.display_name}</b></b>
-        </h2>
-        <h3>
+      <div className="Source" data-id={this.props.source.id}>
+        <p>
+          {this.props.source.display_name} <br></br>
           {this.props.source.stream_type}
-        </h3>
+        </p>
       </div>
     );
   }

@@ -8,15 +8,12 @@ export class SourceManagerContainer extends Component {
     super()
   }
 
-
   render() {
-
     const sources = (
         this.props.sources.map((source, index) => <div key={index}><Source source={source}/></div> )
     )
-
     return (
-        <Row>
+        <Row className="Container">
           {sources}
         </Row>
     );

@@ -14,9 +14,11 @@ export class DashboardContainer extends Component {
 
   render() {
     return (
-        <Row>
-          <div><PlaylistContainer playlists={this.props.playlists}/></div>
-        </Row>
+
+          <div className="Container">
+            <PlaylistContainer playlists={this.props.playlists}/>
+          </div>
+
     );
   }
 }

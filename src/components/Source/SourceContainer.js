@@ -10,7 +10,7 @@ export class SourceContainer extends Component {
     )
 
     return (
-        <Row>
+        <Row className="Container">
           {sources}
         </Row>
     );
